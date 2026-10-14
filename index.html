@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Daily Whoa — An AI-Native Media Startup</title>
+<meta name="description" content="The Daily Whoa is an AI-native video studio. We manufacture curiosity — short films about the world's most mind-bending facts, published daily across every short-form platform.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#07070f; --bg2:#0c0c1a; --card:#101022;
+    --ink:#f2f2fa; --muted:#a7a7c4;
+    --violet:#8b5cf6; --cyan:#22d3ee; --pink:#f472b6;
+    --line:rgba(255,255,255,.08);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.6;overflow-x:hidden}
+  h1,h2,h3,.grotesk{font-family:'Space Grotesk',sans-serif}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+  /* ambient background */
+  .glow{position:fixed;border-radius:50%;filter:blur(120px);opacity:.35;pointer-events:none;z-index:0}
+  .glow.g1{width:520px;height:520px;background:var(--violet);top:-160px;left:-120px}
+  .glow.g2{width:460px;height:460px;background:var(--cyan);top:40%;right:-160px;opacity:.22}
+  .glow.g3{width:420px;height:420px;background:var(--pink);bottom:-140px;left:30%;opacity:.18}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:blur(14px);background:rgba(7,7,15,.65);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-family:'Space Grotesk';font-weight:700;font-size:1.15rem;letter-spacing:.02em}
+  .logo span{background:linear-gradient(90deg,var(--violet),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+  nav ul{display:flex;gap:28px;list-style:none;font-size:.92rem;color:var(--muted)}
+  nav ul a:hover{color:var(--ink)}
+  .btn{display:inline-block;padding:12px 26px;border-radius:999px;font-weight:600;font-size:.95rem;background:linear-gradient(90deg,var(--violet),var(--cyan));color:#060612;transition:transform .18s ease,box-shadow .18s ease}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(139,92,246,.35)}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn.ghost:hover{box-shadow:none;border-color:var(--violet)}
+  .btn.small{padding:9px 20px;font-size:.85rem}
+
+  header{min-height:100vh;display:flex;align-items:center;position:relative;z-index:1;padding:120px 0 80px}
+  .eyebrow{display:inline-block;font-size:.78rem;letter-spacing:.22em;color:var(--cyan);border:1px solid rgba(34,211,238,.35);border-radius:999px;padding:7px 16px;margin-bottom:26px}
+  h1{font-size:clamp(2.6rem,6vw,4.6rem);line-height:1.05;font-weight:700;letter-spacing:-.02em;margin-bottom:22px}
+  h1 .grad{background:linear-gradient(92deg,var(--violet) 10%,var(--pink) 50%,var(--cyan) 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lede{font-size:1.15rem;color:var(--muted);max-width:620px;margin-bottom:36px}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap}
+
+  section{padding:96px 0;position:relative;z-index:1}
+  .kicker{font-size:.78rem;letter-spacing:.22em;color:var(--violet);margin-bottom:12px;font-weight:600}
+  h2{font-size:clamp(1.8rem,3.6vw,2.6rem);letter-spacing:-.01em;margin-bottom:14px}
+  .sub{color:var(--muted);max-width:640px;margin-bottom:48px}
+
+  .strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:64px}
+  .strip div{background:var(--bg2);padding:26px 22px}
+  .strip b{display:block;font-family:'Space Grotesk';font-size:1.5rem;margin-bottom:4px}
+  .strip span{color:var(--muted);font-size:.88rem}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px 26px;transition:transform .2s ease,border-color .2s ease}
+  .card:hover{transform:translateY(-4px);border-color:rgba(139,92,246,.5)}
+  .card .icon{font-size:1.7rem;margin-bottom:14px}
+  .card h3{font-size:1.12rem;margin-bottom:8px}
+  .card p{color:var(--muted);font-size:.93rem}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;counter-reset:step}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px 26px;position:relative}
+  .step::before{counter-increment:step;content:"0" counter(step);font-family:'Space Grotesk';font-weight:700;font-size:.85rem;letter-spacing:.18em;color:var(--cyan);display:block;margin-bottom:14px}
+  .step h3{font-size:1.15rem;margin-bottom:8px}
+  .step p{color:var(--muted);font-size:.93rem}
+
+  .plats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .plat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 24px;text-align:center;transition:transform .2s ease,border-color .2s ease}
+  .plat:hover{transform:translateY(-4px);border-color:rgba(34,211,238,.5)}
+  .plat .icon{font-size:2rem;margin-bottom:10px}
+  .plat h3{font-size:1.02rem;margin-bottom:4px}
+  .plat p{color:var(--muted);font-size:.85rem;margin-bottom:14px}
+  .plat a{font-size:.88rem;font-weight:600;color:var(--cyan)}
+
+  .about{background:var(--bg2);border:1px solid var(--line);border-radius:22px;padding:48px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+  .about p{color:var(--muted);margin-bottom:14px}
+  .about p b{color:var(--ink)}
+  .facts{list-style:none}
+  .facts li{padding:12px 0;border-bottom:1px solid var(--line);font-size:.95rem;display:flex;justify-content:space-between;gap:12px}
+  .facts li:last-child{border-bottom:none}
+  .facts span:first-child{color:var(--muted)}
+
+  footer{border-top:1px solid var(--line);padding:40px 0;position:relative;z-index:1}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;color:var(--muted);font-size:.88rem}
+  footer a:hover{color:var(--ink)}
+
+  @media(max-width:860px){
+    .grid,.steps{grid-template-columns:1fr}
+    .strip{grid-template-columns:repeat(2,1fr)}
+    .plats{grid-template-columns:repeat(2,1fr)}
+    .about{grid-template-columns:1fr;padding:32px}
+    nav ul{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top">The Daily <span>Whoa</span></a>
+    <ul>
+      <li><a href="#what">What we do</a></li>
+      <li><a href="#factory">The Factory</a></li>
+      <li><a href="#platforms">Platforms</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <a class="btn small" href="https://www.youtube.com/@DailyWhoaTV" target="_blank" rel="noopener">Watch now</a>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="wrap">
+    <span class="eyebrow">AI-NATIVE MEDIA STARTUP · EST. 2026</span>
+    <h1>Curiosity,<br><span class="grad">manufactured daily.</span></h1>
+    <p class="lede">The Daily Whoa is an AI-native video studio. We make short films about the world's most mind-bending facts — space, science, psychology, history — and publish them every single day, on every short-form platform.</p>
+    <div class="cta-row">
+      <a class="btn" href="https://www.youtube.com/@DailyWhoaTV" target="_blank" rel="noopener">Watch on YouTube</a>
+      <a class="btn ghost" href="#factory">How it works</a>
+    </div>
+    <div class="strip">
+      <div><b>4</b><span>Platforms publishing daily</span></div>
+      <div><b>10<span style="font-size:1rem;color:var(--muted)">/day</span></b><span>Target production cadence</span></div>
+      <div><b>100%</b><span>Original scripts &amp; ideas</span></div>
+      <div><b>AI-native</b><span>End-to-end pipeline</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="what">
+  <div class="wrap">
+    <div class="kicker">WHAT WE DO</div>
+    <h2>Sixty seconds that rewire your brain.</h2>
+    <p class="sub">Every video starts with a question you can't un-ask — then answers it with real science, real footage, and cinematic sound design. Family-friendly, fact-checked, impossible to scroll past.</p>
+    <div class="grid">
+      <div class="card"><div class="icon">🪐</div><h3>Space &amp; Extreme Physics</h3><p>Black holes, neutron stars, time dilation — the universe at its most absurd, made intuitive.</p></div>
+      <div class="card"><div class="icon">🧠</div><h3>Mind &amp; Human Body</h3><p>Psychology quirks, body mysteries, and the strange wiring you run on every day.</p></div>
+      <div class="card"><div class="icon">🏛️</div><h3>History &amp; Civilizations</h3><p>Ancient engineering, lost worlds, and the plot twists they never taught you.</p></div>
+      <div class="card"><div class="icon">🌊</div><h3>Nature &amp; Ocean</h3><p>Deep-sea aliens, animal superpowers, and weather that breaks the scale.</p></div>
+      <div class="card"><div class="icon">⚗️</div><h3>Science &amp; Technology</h3><p>How things work, what-if physics, and the experiments hiding in plain sight.</p></div>
+      <div class="card"><div class="icon">🌀</div><h3>Mysteries &amp; Illusions</h3><p>Optical illusions, unsolved puzzles, and realities that aren't what they seem.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="factory">
+  <div class="wrap">
+    <div class="kicker">THE FACTORY</div>
+    <h2>A content pipeline no human team could match.</h2>
+    <p class="sub">We run The Daily Whoa like a factory, not a channel. An automated loop ideates, produces, and publishes around the clock — with human taste guarding every frame.</p>
+    <div class="steps">
+      <div class="step"><h3>Idea Engine</h3><p>Every morning the pipeline generates and scores twenty video concepts — ranked by curiosity gap, visual potential, and verified accuracy before anything gets made.</p></div>
+      <div class="step"><h3>Production</h3><p>Scripts, real motion footage, sound design, and karaoke-style captions are assembled per platform spec — then pass an automated quality gate that checks every frame.</p></div>
+      <div class="step"><h3>Publishing</h3><p>Finished videos ship to YouTube Shorts first, then cascade to TikTok, Instagram Reels, and Facebook Reels — daily, without missing a beat.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="platforms">
+  <div class="wrap">
+    <div class="kicker">PLATFORMS</div>
+    <h2>Find us wherever you scroll.</h2>
+    <p class="sub">One factory, four storefronts. New videos land everywhere, every day.</p>
+    <div class="plats">
+      <div class="plat"><div class="icon">▶️</div><h3>YouTube Shorts</h3><p>@DailyWhoaTV</p><a href="https://www.youtube.com/@DailyWhoaTV" target="_blank" rel="noopener">Watch →</a></div>
+      <div class="plat"><div class="icon">🎵</div><h3>TikTok</h3><p>@dailywhoa13</p><a href="https://www.tiktok.com/@dailywhoa13" target="_blank" rel="noopener">Watch →</a></div>
+      <div class="plat"><div class="icon">📸</div><h3>Instagram</h3><p>@dailywhoatv</p><a href="https://www.instagram.com/dailywhoatv" target="_blank" rel="noopener">Watch →</a></div>
+      <div class="plat"><div class="icon">👍</div><h3>Facebook</h3><p>The Daily Whoa</p><a href="https://www.facebook.com/Dailywhoatv/" target="_blank" rel="noopener">Watch →</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="about">
+      <div>
+        <div class="kicker">ABOUT</div>
+        <h2>A studio, not just a channel.</h2>
+        <p>The Daily Whoa started in October 2026 with a simple bet: that <b>AI plus human taste</b> can out-produce any traditional content team — without sacrificing accuracy or craft.</p>
+        <p>We're bootstrapped and independent, building toward a multi-channel faceless media network. Every claim is verified, every video is family-friendly, and every day the factory ships.</p>
+      </div>
+      <ul class="facts">
+        <li><span>Founded</span><b>October 2026</b></li>
+        <li><span>Stage</span><b>Bootstrapped · Pre-seed</b></li>
+        <li><span>Based in</span><b>Pakistan · Remote-first</b></li>
+        <li><span>Contact</span><b><a href="mailto:hello@tunio.me" style="color:var(--cyan)">hello@tunio.me</a></b></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 The Daily Whoa. All rights reserved.</span>
+    <span><a href="mailto:hello@tunio.me">hello@tunio.me</a> · tunio.me</span>
+  </div>
+</footer>
+</body>
+</html>
